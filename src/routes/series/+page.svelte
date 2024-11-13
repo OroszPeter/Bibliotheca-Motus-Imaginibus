@@ -9,7 +9,7 @@
     });
 </script>
 <main class="{ $nightMode ? 'nightMode' : '' }">
-    <h1 class="pt-5 ps-3 pb-3">Filmek</h1>
+    <h1 class="pt-5 ps-3 pb-3">Sorozatok</h1>
     <h3 class="ps-3">Kategória 1</h3>
     <div id="carouselExample1" class="carousel slide" data-bs-interval="false">
         <div class="carousel-inner">
@@ -130,10 +130,11 @@
         background-color: #FFF2D7;
         transition: background-color 0.3s; 
     }
+
     h1, h3, h5 {
+        color: #FFBF78;
         font-family: "Lato", sans-serif;
         font-weight: 400;
-        color: #FFBF78;
     }
     .nightMode {
         background-color: #444444; /* Háttérszín sötét módban */

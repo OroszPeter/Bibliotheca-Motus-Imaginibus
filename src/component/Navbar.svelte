@@ -3,7 +3,7 @@
     let night_Mode = false;
     import { nightMode as nightModeStore } from '../store.js';
 
-    // Állapot a lenyíló menühöz
+    // Lenyíló menü állapota
     let isMenuOpen = false;
 
     function toggleLight() {
@@ -16,90 +16,121 @@
     }
 </script>
 
-<div class="d-flex flex-row w-100 h-25">
-    <nav class="{night_Mode ? 'nightMode' : ''} w-100 py-2 h-100">
-        <a href="/" class="first-link ms-4">
-             <b>Bibliotheca Motus Imaginibus</b>
+<div class="{night_Mode ? 'nightMode' : ''} navbar-container">
+    <nav class="{night_Mode ? 'nightMode' : ''} navbar w-100 py-2">
+        <a href="/" class="first-link">
+            <b>Bibliotheca Motus Imaginibus</b>
         </a>
-        <a href="" class="ms-3" on:click={toggleMenu}>
+
+        <a href="javascript:void(0);" class="ms-4" on:click={toggleMenu}>
             Menu
         </a>
         <!-- Lenygó tartalom, ha isMenuOpen igaz -->
         {#if isMenuOpen}
-            <div class="{night_Mode ? 'nightMode' : ''} dropdown-menu w-100">
-                <div>
-                    <a href="/movies">Filmek</a><br>
-                    <a href="/tv-shows">Sorozatok</a><br>
-                    <a href="/about">Gyakran ismételt kérdések</a><br>
-                </div>
+            <div class="{night_Mode ? 'nightMode' : ''} dropdown-menu">
+                <a href="/movies" class="dropdown-item">Filmek</a>
+                <a href="/series" class="dropdown-item">Sorozatok</a>
+                <a href="/about" class="dropdown-item">Visszajelzés</a>
             </div>
         {/if}
-        <div class="{night_Mode ? 'nightMode' : ''} d-inline ms-3" id="search">
-            <input class="m-0 w-50" type="text" placeholder="Keresés. . .">
-            <a href="/result" class="m-0 p-0 sb"><i class="bi bi-search"></i></a>
+        
+        <!-- Keresőmező, amely mindig látható -->
+        <div class="{night_Mode ? 'nightMode' : ''} search-container pe-2">
+            <input type="text" placeholder="Keresés. . ." />
+            <a href="/result" class="sb"><i class="bi bi-search"></i></a>
         </div>
-        <a href="/watchlist" class="ms-3">
-            Watchlist
-        </a>
-        <a href="/login" class="ms-3">
-            Bejelentkezés
-        </a>
-        <a href="" class="ms-3 me-4" on:click={toggleLight}>
-            CC
-        </a>
+        
+        <!-- Navigációs linkek nagyobb képernyőkre -->
+        <div class="nav-links">
+            <a href="/watchlist">Watchlist</a>
+            <a href="/login">Bejelentkezés</a>
+            <a href="" on:click={toggleLight}>CC</a>
+        </div>
     </nav>
+
+    <!-- Dropdown menü, amely kis képernyőkön jelenik meg, ha a hamburger menüt lenyomják -->
+    <!-- {#if isMenuOpen}
+        <div class="{night_Mode ? 'nightMode' : ''} dropdown-menu">
+            <a href="/watchlist">Watchlist</a>
+            <a href="/login">Bejelentkezés</a>
+            <a href="" on:click={toggleLight}>CC</a>
+            <a href="/movies">Filmek</a><br>
+            <a href="/tv-shows">Sorozatok</a><br>
+            <a href="/about">Gyakran ismételt kérdések</a><br>
+        </div>
+    {/if} -->
 </div>
 
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900&display=swap');
+
+    /* Alap elrendezés és stílusok */
+    .navbar-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    /* .navbar módosítása */
+nav.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Balra igazítja a tartalmat */
+    background-color: #FF7D29;
+    padding: 0.5rem 1rem;
+    width: 100%;
+    gap: 20px; /* Távolságot ad a linken és a menü többi elem között */
+}
+
+/* Kisebb képernyőkön a nav-links és a többi elem közötti távolság */
+.nav-links {
+    display: flex;
+    flex-direction: row;
+    gap: 10px; /* Csökkentett gap érték a linkek között */
+    margin-left: 20px; /* Távolság a "Bibliotheca Motus Imaginibus" linktől */
+}
 
     a {
         text-decoration: none;
         color: #FEFFD2;
         font-family: "Lato", sans-serif;
         font-weight: 400;
-        font-style: normal;
         font-size: 20px;
     }
-    .dropdown-menu a{
-        font-size: 20px;
-    }
-    
-    nav {
-        background-color: #FF7D29;
+
+    .first-link {
+        font-size: 1.2rem;
     }
 
-    button {
-        border: none;
+    /* Keresősáv stílusai */
+    .search-container {
+        width: 750px;
+        display: flex;
+        align-items: center;
         background-color: #FFF2D7;
-        height: 21px;
-    }
-
-    input {
-        border: none;
-        background-color: #FFF2D7;
-        height: 21px;
-        outline: none;
-    }
-
-    #search {
-        background-color: #FFF2D7;
-        height: 21px;
         border-radius: 10px;
         padding: 1px 10px;
     }
 
-    #search:focus-within {
-        outline: 2px solid black;
-        border-radius: 10px;
+    input[type="text"] {
+        border: none;
+        background: none;
+        outline: none;
+        color: inherit;
+        padding: 5px;
     }
 
-    .sb {
-        color: black;
+    /* Hamburger ikon kisebb kijelzőkön */
+    .menu-toggle {
+        display: none;
+        font-size: 1.5rem;
+        cursor: pointer;
     }
 
+    /* Éjszakai mód háttér és színek */
     .nightMode {
-        background-color: black;
+        background-color: black !important;
     }
 
     .nightMode a {
@@ -111,7 +142,7 @@
     }
 
     .nightMode input {
-        background-color: #444;
+        background-color: black;
         color: white;
     }
 
@@ -119,35 +150,74 @@
         color: white;
     }
 
-    .nightMode #search {
+    .nightMode .search-container {
         background-color: #444;
         border: 1px solid white;
     }
 
-    .nightMode #search:focus-within {
-        outline: 2px solid white;
-    }
-
-    /* Dropdown menü stílusa */
+    /* Dropdown menü stílusai */
     .dropdown-menu {
-        position: absolute;
+        width: 97.5%;
         background-color: #FF7D29;
-        border: 1px solid #FFF2D7;
         padding: 10px;
         border-radius: 5px;
-        top: 40px; /* Ellenőrizzük ezt az értéket */
-        left: 0px; /* Szükség szerint változtassuk meg */
-        z-index: 9999; /* Nagyobb érték a biztos láthatóságért */
-        display: block; /* Győződjünk meg róla, hogy a display értéke block */
+        position: absolute;
+        top: 52.5px;
+
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
     }
 
-    .dropdown-item {
-        display: block;
-        padding: 5px 10px;
-        color: #FEFFD2;
+    /* Reszponzív stílusok */
+   
+    /* Tablethez és mobilhoz (max 1024px) */
+    @media (max-width: 1024px) {
+        .nav-links {
+            display: none; /* Navigációs linkek elrejtése kisebb képernyőkön */
+        }
+
+        .menu-toggle {
+            display: block;
+            color: #FEFFD2;
+        }
+
+        .search-container {
+        max-width: 750px;
+        width: 100%;
+        margin-top: 0.5rem;
     }
 
-    .dropdown-item:hover {
-        background-color: #FFE0B3;
+        .first-link {
+            font-size: 1rem;
+        }
+    }
+
+    /* Nagy képernyőkhöz (min 1024px) */
+    @media (min-width: 1024px) {
+        .navbar {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+        }
+
+        .search-container {
+            width: 750px;
+        }
+        .search-container input {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+        }
     }
 </style>
