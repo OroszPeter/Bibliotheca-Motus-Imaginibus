@@ -141,7 +141,7 @@ nav.navbar {
         color: red;
     }
 
-    .nightMode input {
+    .nightMode input, .nightMode .bi {
         background-color: black;
         color: white;
     }
@@ -168,6 +168,9 @@ nav.navbar {
         display: flex;
         flex-direction: column;
         gap: 10px;
+    }
+    .bi{
+        color: #FF7D29;
     }
 
     /* Reszponzív stílusok */
