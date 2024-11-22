@@ -25,7 +25,7 @@
                     <div class="d-flex justify-content-center">
                         <img src="https://via.placeholder.com/800x400" class="d-block w-75" alt="Kép 1">
                     </div>
-                    <div class="carousel-caption d-none d-md-block">
+                    <div class="carousel-caption position-static">
                         <h5>Film 1</h5>
                     <p>Műfaj</p>
                 </div>
@@ -34,7 +34,7 @@
                 <div class="d-flex justify-content-center">
                     <img src="https://via.placeholder.com/800x400" class="d-block w-75" alt="Kép 2">
                 </div>
-                <div class="carousel-caption d-none d-md-block">
+                <div class="carousel-caption position-static">
                     <h5>Film 2</h5>
                     <p>Műfaj</p>
                 </div>
@@ -43,7 +43,7 @@
                 <div class="d-flex justify-content-center">
                     <img src="https://via.placeholder.com/800x400" class="d-block w-75" alt="Kép 3">
                 </div>
-                <div class="carousel-caption d-none d-md-block">
+                <div class="carousel-caption position-static">
                     <h5>Film 3</h5>
                     <p>Műfaj</p>
                 </div>
@@ -66,7 +66,7 @@
                     <div class="d-flex justify-content-center">
                         <img src="https://via.placeholder.com/800x400" class="d-block w-75" alt="Kép 1">
                     </div>
-                    <div class="carousel-caption d-none d-md-block">
+                    <div class="carousel-caption position-static">
                         <h5>Sorozat 1</h5>
                         <p>Műfaj</p>
                     </div>
@@ -75,7 +75,7 @@
                     <div class="d-flex justify-content-center">
                         <img src="https://via.placeholder.com/800x400" class="d-block w-75" alt="Kép 2">
                     </div>
-                    <div class="carousel-caption d-none d-md-block">
+                    <div class="carousel-caption position-static">
                         <h5>Sorozat 2</h5>
                         <p>Műfaj</p>
                     </div>
@@ -84,7 +84,7 @@
                     <div class="d-flex justify-content-center">
                         <img src="https://via.placeholder.com/800x400" class="d-block w-75" alt="Kép 3">
                     </div>
-                    <div class="carousel-caption d-none d-md-block">
+                    <div class="carousel-caption position-static">
                         <h5>Sorozat 3</h5>
                         <p>Műfaj</p>
                     </div>
@@ -161,24 +161,37 @@
         color: red; /* Cím színe sötét módban */
     }
 
-    /* Carousel kép stílus */
-    .carousel-inner .col img {
-        max-height: 310px;
-    }
+/* A carousel vezérlő gombjainak pozicionálása kívülre */
+.carousel-control-prev, .carousel-control-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 5%; /* Szélesség csökkentése */
+}
 
-    .carousel-caption.position-static {
-        position: static;
-        color: #333;
-        font-size: 1rem;
-        padding-top: 5px;
-    }
+.carousel-control-prev {
+    left: -5%; /* Balra tolás */
+}
 
-    .nightMode .carousel-caption.position-static {
-        color: white; /* Sötét módban a felirat színe */
-    }
+.carousel-control-next {
+    right: -5%; /* Jobbra tolás */
+}
 
-    .carousel-item-wrapper {
-        padding: 0 10px;
-        flex: 1 1 0;
-    }
+/* A képek szélén egy kis margó */
+.carousel-inner {
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+/* Carousel képek stílusa */
+.carousel-inner .col img {
+    max-height: 250px;
+    object-fit: cover; /* Kép kitöltése a rendelkezésre álló helyet */
+}
+
+/* Sötét mód esetén */
+.nightMode .carousel-caption.position-static {
+    color: white; /* Felirat színe sötét módban */
+}
 </style>
